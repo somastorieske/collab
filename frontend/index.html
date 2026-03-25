@@ -133,6 +133,36 @@
             text-decoration: underline;
         }
 
+        .tab-switch {
+            display: flex;
+            gap: 0.45rem;
+            margin-bottom: 1.4rem;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            background: #eef2ff;
+            border: 1px solid #cfe1ff;
+        }
+
+        .tab-button {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 0.65rem 0.8rem;
+            font-weight: 600;
+            color: #475569;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .tab-button.active {
+            background: #3b82f6;
+            color: #ffffff;
+        }
+
+        .tab-panel.hidden {
+            display: none;
+        }
+
         #successMessage {
             color: #16a34a;
             margin-top: 0.65rem;
@@ -143,33 +173,72 @@
 </head>
 
 <body>
-    <div class="card" aria-label="Login form">
-        <h1>Welcome back to Collab</h1>
-        <p class="subtitle">Sign in to continue collaborating with your team.</p>
+    <div class="card" aria-label="Authentication container">
+        <div class="tab-switch" role="tablist" aria-label="Authentication tabs">
+            <button type="button" class="tab-button active" id="loginTab" aria-selected="true">Sign in</button>
+            <button type="button" class="tab-button" id="signupTab" aria-selected="false">Create account</button>
+        </div>
 
-        <form id="loginForm" novalidate>
-            <div class="form-field">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="you@example.com" required />
-                <p class="error-msg" id="emailError" aria-live="polite"></p>
-            </div>
+        <section id="loginSection" class="tab-panel" aria-labelledby="loginTab">
+            <h1>Welcome back to Collab</h1>
+            <p class="subtitle">Sign in to continue collaborating with your team.</p>
 
-            <div class="form-field">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required minlength="6" />
-                <p class="error-msg" id="passwordError" aria-live="polite"></p>
-            </div>
+            <form id="loginForm" novalidate>
+                <div class="form-field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" required />
+                    <p class="error-msg" id="emailError" aria-live="polite"></p>
+                </div>
 
-            <div class="actions">
-                <label><input type="checkbox" id="remember" name="remember" /> Remember me</label>
-                <a href="#" id="forgotPassword">Forgot password?</a>
-            </div>
+                <div class="form-field">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required minlength="6" />
+                    <p class="error-msg" id="passwordError" aria-live="polite"></p>
+                </div>
 
-            <button type="submit" class="btn">Sign in</button>
-            <p id="successMessage" role="status"></p>
-        </form>
+                <div class="actions">
+                    <label><input type="checkbox" id="remember" name="remember" /> Remember me</label>
+                    <a href="#" id="forgotPassword">Forgot password?</a>
+                </div>
 
-        <p class="help-text">New to Collab? <a href="#">Create an account</a></p>
+                <button type="submit" class="btn">Sign in</button>
+            </form>
+        </section>
+
+        <section id="signupSection" class="tab-panel hidden" aria-labelledby="signupTab">
+            <h1>Create your Collab account</h1>
+            <p class="subtitle">Join now to start collaborating with your team instantly.</p>
+
+            <form id="signupForm" novalidate>
+                <div class="form-field">
+                    <label for="fullName">Full name</label>
+                    <input type="text" id="fullName" name="fullName" placeholder="Jane Doe" required />
+                    <p class="error-msg" id="nameError" aria-live="polite"></p>
+                </div>
+
+                <div class="form-field">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" name="signupEmail" placeholder="you@example.com" required />
+                    <p class="error-msg" id="signupEmailError" aria-live="polite"></p>
+                </div>
+
+                <div class="form-field">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" name="signupPassword" placeholder="Create a password" required minlength="6" />
+                    <p class="error-msg" id="signupPasswordError" aria-live="polite"></p>
+                </div>
+
+                <div class="form-field">
+                    <label for="confirmPassword">Confirm password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Repeat your password" required minlength="6" />
+                    <p class="error-msg" id="confirmError" aria-live="polite"></p>
+                </div>
+
+                <button type="submit" class="btn">Create account</button>
+            </form>
+        </section>
+
+        <p id="successMessage" role="status"></p>
     </div>
 
     <script src="Home.js"></script>
